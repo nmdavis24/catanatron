@@ -68,8 +68,9 @@ while True:
         #rc = subprocess.call("catanatron-play --players=R,W,F,AB:2 --num=2")
         # This is the path on a Mac for Thomas
         window.close()
+        window.close()
+        window.close()
         os.system('/Users/thomashansknecht/opt/anaconda3/bin/catanatron-play --players=' + str(values[2]) +','+ str(values[3])+ ','+ str(values[4])+ ',' + str(values[5]) + ' --num=' + str((int(values[6])))) 
-        GenerateEndScreen(TRUE)
         break
 
 window.close()
