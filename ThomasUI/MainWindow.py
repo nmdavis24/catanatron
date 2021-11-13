@@ -51,7 +51,9 @@ while True:
                     values[i] = "R"
                 elif (values[i] == options[3]): #Custom1 -- Custom AI
                     values[i] = "Y"
-                #Custom2 -- Not created yet
+                elif (values[i] == options[4]): #Custom2 -- Not created yet
+                    values[i] = "None"
+                
 
                 
                 
