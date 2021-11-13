@@ -198,12 +198,19 @@ def play_batch(
             traceback.print_exc()
         finally:
             duration = time.time() - start
+
+
         arrayOfVictoryPoints =['','','','']
+        arrayOfPlayerTypes = ['','','','']
+
         playerIndex = 0
         for p in players:
             arrayOfVictoryPoints[playerIndex]= str(game.state.player_state[
                         f"{player_key(game.state, p.color)}_ACTUAL_VICTORY_POINTS"])
+            arrayOfPlayerTypes[playerIndex] = str(p)
             playerIndex = playerIndex + 1
+
+
 
         logger.debug(
             str(
@@ -217,7 +224,7 @@ def play_batch(
             + f" ({duration:.3g} secs) [{game.winning_color()}:{game.state.num_turns}({len(game.state.actions)})]"
         )
         # Now that we played a game lets show the results
-        GenerateEndScreen(i+1, arrayOfVictoryPoints)
+        GenerateEndScreen(i+1, arrayOfVictoryPoints, arrayOfPlayerTypes)
         if save_in_db and not watch:
             link = ensure_link(game)
             logger.info(f"Saved in db. See result at: {link}")
