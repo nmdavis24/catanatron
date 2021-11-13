@@ -8,6 +8,10 @@ import click
 import termplotlib as tpl
 import numpy as np
 import pandas as pd
+# Now we import the Thomas End Screen UI
+
+from ThomasUI.SecondWindow import GenerateEndScreen
+
 
 from catanatron.state import player_key
 from catanatron_server.utils import ensure_link
@@ -167,7 +171,9 @@ def play_batch(
 
         logger.debug(
             f"Playing game {i + 1} / {num_games}. Seating: {game.state.players}"
+            
         )
+
         action_callbacks = []
         if games_directory:
             action_callbacks.append(build_action_callback(games_directory))
@@ -203,6 +209,8 @@ def play_batch(
             )
             + f" ({duration:.3g} secs) [{game.winning_color()}:{game.state.num_turns}({len(game.state.actions)})]"
         )
+        # Now that we played a game lets show the results
+        GenerateEndScreen(i+1)
         if save_in_db and not watch:
             link = ensure_link(game)
             logger.info(f"Saved in db. See result at: {link}")
