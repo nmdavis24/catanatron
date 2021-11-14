@@ -144,4 +144,4 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,p
 
         window.close()
 
-GenerateResultsScreen(5,["RandomPlayer:RED","AlphaBetaPlayer:BLUE","BadPlayer:YELLOW","GreenPlayer:GREEN"],[5,10,15,20],[5,10,15,5],3,4)
+#GenerateResultsScreen(5,["RandomPlayer:RED","AlphaBetaPlayer:BLUE","BadPlayer:YELLOW","GreenPlayer:GREEN"],[5,10,15,20],[5,10,15,5],3,4)

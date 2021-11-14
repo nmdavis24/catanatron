@@ -2,6 +2,7 @@ import traceback
 import time
 from collections import defaultdict
 import logging
+from ThomasUI.FourthWindow import GenerateResultsScreen
 
 import coloredlogs
 import click
@@ -258,16 +259,26 @@ def play_batch(
     logger.info(f"AVG Turns: {sum(turns) / len(turns)}")
     logger.info(f"AVG Duration: {sum(durations) / len(durations)}")
 
+    avgVictoryPoints = ['','','','']
+    playerWins = ['','','','']
+    i = 0
     for player in players:
         vps = results_by_player[player.color]
         logger.info(f"AVG VPS: {player} {sum(vps) / len(vps)}")
+        avgVictoryPoints[i] = sum(vps) / len(vps)
+        playerWins[i] = wins[player.color]
+        i = i + 1
+
+    # Now we have played all games
+    GenerateResultsScreen(num_games,arrayOfPlayerTypes,avgVictoryPoints,playerWins,len(players))
+
 
     # Print Winners graph in command line:
     fig = tpl.figure()
     fig.barh([wins[p.color] for p in players], players, force_ascii=False)
     for row in fig.get_string().split("\n"):
         logger.info(row)
-
+   
     return wins, results_by_player
 
 

@@ -3,8 +3,6 @@ import numpy as np
 from ctypes import sizeof
 import os
 from pickle import FALSE, TRUE
-import subprocess
-import math
 from humanfriendly import text
 
 
@@ -42,7 +40,7 @@ class Toolbar(NavigationToolbar2Tk):
 
 
 # Simple UI for catan
-def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,playerWins,winningPlayer,numOfPlayers):
+def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,playerWins,numOfPlayers):
 
     playerColors = ['','','','']
     playerClass = ['','','','']
@@ -120,7 +118,13 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,p
         # ------------------------------- PASTE YOUR MATPLOTLIB CODE HERE
         fig = plt.figure()
         ax = fig.add_axes([0,0,1,1])
-        ax.bar(playerClass,playerWins,color=playerColors)
+        print ("Player Wins is " + str(playerWins))
+        print ("Player Classes"+str(playerClass))
+        # using list comprehension to
+        # perform conversion
+        test_list = [int(i) for i in playerWins]
+        
+        ax.bar(playerClass,test_list,color=playerColors)
         plt.grid()
             
 
@@ -129,4 +133,4 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,p
         window['graph_Header'].Update("Graph of Player Wins")
 
 
-#GenerateResultsScreen(5,["RandomPlayer:RED","AlphaBetaPlayer:BLUE","BadPlayer:YELLOW","GreenPlayer:GREEN"],[5,10,15,20],[5,10,15,5],3,4)
+#GenerateResultsScreen(5,["RandomPlayer:RED","AlphaBetaPlayer:BLUE","BadPlayer:YELLOW","GreenPlayer:GREEN"],[5,10,15,20],["0","1","0","0"],3)

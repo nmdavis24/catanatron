@@ -15,7 +15,7 @@ def GenerateEndScreen(GameNum,playerVictoryPoints,arrayOfPlayerTypes):
 
     playerColors = ['','','','']
     playerClass = ['','','','']
-    print (arrayOfPlayerTypes)
+    
     
     for i in range(0,len(arrayOfPlayerTypes)):
         if (arrayOfPlayerTypes[i] != ''):
@@ -33,8 +33,7 @@ def GenerateEndScreen(GameNum,playerVictoryPoints,arrayOfPlayerTypes):
             playerColors[i] = "white"
             playerClass[i] = "Nothing"
         
-    print("Player Classes: " + str(playerClass))
-    print("Player Colors: " + str(playerColors).lower())
+    
 
     sg.theme('DarkAmber')   # Add a touch of color
     # All the stuff inside your window.
