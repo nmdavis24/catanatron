@@ -260,17 +260,19 @@ def play_batch(
     logger.info(f"AVG Duration: {sum(durations) / len(durations)}")
 
     avgVictoryPoints = ['','','','']
+    totalVictoryPoints = ['','','','']
     playerWins = ['','','','']
     i = 0
     for player in players:
         vps = results_by_player[player.color]
         logger.info(f"AVG VPS: {player} {sum(vps) / len(vps)}")
         avgVictoryPoints[i] = sum(vps) / len(vps)
+        totalVictoryPoints[i] = sum(vps)
         playerWins[i] = wins[player.color]
         i = i + 1
 
     # Now we have played all games
-    GenerateResultsScreen(num_games,arrayOfPlayerTypes,avgVictoryPoints,playerWins,len(players))
+    GenerateResultsScreen(num_games,arrayOfPlayerTypes,avgVictoryPoints,totalVictoryPoints,playerWins,len(players))
 
 
     # Print Winners graph in command line:

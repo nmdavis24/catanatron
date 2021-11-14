@@ -101,6 +101,7 @@ def GenerateEndScreen(GameNum,playerVictoryPoints,arrayOfPlayerTypes):
             #rc = subprocess.call("catanatron-play --players=R,W,F,AB:2 --num=2")
             # This is the path on a Mac for Thomas
             #break
+        return
 
     window.close()
 
