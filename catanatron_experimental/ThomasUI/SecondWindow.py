@@ -39,53 +39,94 @@ def GenerateEndScreen(GameNum,playerVictoryPoints,arrayOfPlayerTypes):
     # All the stuff inside your window.
     leftPad = 0
     # a player on left won
-    # Check for more than 2 players since having less than 3 will throw a ValueError
-    if (arrayOfPlayerTypes[2] != ''):
+    # Check for 4 players since having 2 or 3 can throw a ValueError
+    if (arrayOfPlayerTypes[2] != '' and arrayOfPlayerTypes[3] != ''):
         if int(playerVictoryPoints[0]) >= 10 or int(playerVictoryPoints[2]) >= 10:
             leftPad = 100
         # a player on right won
         elif int(playerVictoryPoints[1]) >= 10 or int(playerVictoryPoints[3]) >= 10:
             leftPad = 900
-    # We only have 2 players
+    # We only have 2 or 3 players
     else:
         if int(playerVictoryPoints[0]) >= 10:
             leftPad = 100
-        # a player on right won
+        # The second player won
         elif int(playerVictoryPoints[1]) >= 10:
             leftPad = 900
+        # The third player won    
+        else:
+            leftPad = 100
 
         #Player 1 or 2 Won the game
-    if int(playerVictoryPoints[0]) >= 10 or int(playerVictoryPoints[1]) >= 10:
-        layout = [
-        [sg.Text('Game: ' + str(GameNum),font=("Arial",50),pad=(500,0))],
-        [sg.Text("",font=("Arial",25))],[sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/crown.png',pad=((leftPad,0),0))],
-        [sg.Text('Player 1 is: ' + str(playerClass[0]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[0])]+[sg.Button('Continue',font=("Arial",40),pad=((170,70),(0,10)))]+[sg.Text('Player 2 is: ' + str(playerClass[1]),font=("Arial",25),text_color = playerColors[1],pad=((150,10),20))],
-        
-        [sg.Text("Victory Points: " +str(playerVictoryPoints[0]),font=("Arial",30),text_color = playerColors[0],key=("player1VicPoints"),pad=((50,580),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[1]),font=("Arial",30),text_color = playerColors[1],key=("player2VicPoints"))],
-        [sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/CatanBoard.png',pad=(200,0))],    
-        [sg.Text('Player 3 is: ' + str(playerClass[2]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[2])] + [sg.Text('Player 4 is: ' + str(playerClass[3]),font=("Arial",25),text_color = playerColors[3],pad=((550,10),20))],
-        
-        [sg.Text("Victory Points: " +str(playerVictoryPoints[2]),font=("Arial",30),text_color = playerColors[2],key=("player3VicPoints"),pad=((50,590),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[3]),font=("Arial",30),text_color = playerColors[3],key=("player4VicPoints"))],
-        ]
+        # Only can use these two if statements when 4 players are present
+    if (arrayOfPlayerTypes[2] != '' and arrayOfPlayerTypes[3] != ''):
+        if int(playerVictoryPoints[0]) >= 10 or int(playerVictoryPoints[1]) >= 10:
+            layout = [
+            [sg.Text('Game: ' + str(GameNum),font=("Arial",50),pad=(500,0))],
+            [sg.Text("",font=("Arial",25))],[sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/crown.png',pad=((leftPad,0),0))],
+            [sg.Text('Player 1 is: ' + str(playerClass[0]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[0])]+[sg.Button('Continue',font=("Arial",40),pad=((170,70),(0,10)))]+[sg.Text('Player 2 is: ' + str(playerClass[1]),font=("Arial",25),text_color = playerColors[1],pad=((150,10),20))],
+            
+            [sg.Text("Victory Points: " +str(playerVictoryPoints[0]),font=("Arial",30),text_color = playerColors[0],key=("player1VicPoints"),pad=((50,580),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[1]),font=("Arial",30),text_color = playerColors[1],key=("player2VicPoints"))],
+            [sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/CatanBoard.png',pad=(200,0))],    
+            [sg.Text('Player 3 is: ' + str(playerClass[2]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[2])] + [sg.Text('Player 4 is: ' + str(playerClass[3]),font=("Arial",25),text_color = playerColors[3],pad=((550,10),20))],
+            
+            [sg.Text("Victory Points: " +str(playerVictoryPoints[2]),font=("Arial",30),text_color = playerColors[2],key=("player3VicPoints"),pad=((50,590),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[3]),font=("Arial",30),text_color = playerColors[3],key=("player4VicPoints"))],
+            ]
 
-    #Player 3 or 4 Won the game
-    elif int(playerVictoryPoints[2]) >= 10 or int(playerVictoryPoints[3]) >= 10:
-        layout = [
-        [sg.Text('Game: ' + str(GameNum),font=("Arial",50),pad=(500,0))],
-        [sg.Text('Player 1 is: ' + str(playerClass[0]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[0])]+[sg.Button('Continue',font=("Arial",40),pad=((170,70),(0,10)))]+[sg.Text('Player 2 is: ' + str(playerClass[1]),font=("Arial",25),text_color = playerColors[1],pad=((150,10),20))],
+        #Player 3 or 4 Won the game
+        elif int(playerVictoryPoints[2]) >= 10 or int(playerVictoryPoints[3]) >= 10:
+            layout = [
+            [sg.Text('Game: ' + str(GameNum),font=("Arial",50),pad=(500,0))],
+            [sg.Text('Player 1 is: ' + str(playerClass[0]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[0])]+[sg.Button('Continue',font=("Arial",40),pad=((170,70),(0,10)))]+[sg.Text('Player 2 is: ' + str(playerClass[1]),font=("Arial",25),text_color = playerColors[1],pad=((150,10),20))],
+            
+            [sg.Text("Victory Points: " +str(playerVictoryPoints[0]),font=("Arial",30),text_color = playerColors[0],key=("player1VicPoints"),pad=((50,580),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[1]),font=("Arial",30),text_color = playerColors[1],key=("player2VicPoints"))],
+            [sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/CatanBoard.png',pad=(200,0))],
+            [sg.Text("",font=("Arial",25))],[sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/crown.png',pad=((leftPad,0),0))],    
+            [sg.Text('Player 3 is: ' + str(playerClass[2]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[2])] + [sg.Text('Player 4 is: ' + str(playerClass[3]),font=("Arial",25),text_color = playerColors[3],pad=((550,10),20))],
+            
+            [sg.Text("Victory Points: " +str(playerVictoryPoints[2]),font=("Arial",30),text_color = playerColors[2],key=("player3VicPoints"),pad=((50,590),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[3]),font=("Arial",30),text_color = playerColors[3],key=("player4VicPoints"))],
         
-        [sg.Text("Victory Points: " +str(playerVictoryPoints[0]),font=("Arial",30),text_color = playerColors[0],key=("player1VicPoints"),pad=((50,580),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[1]),font=("Arial",30),text_color = playerColors[1],key=("player2VicPoints"))],
-        [sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/CatanBoard.png',pad=(200,0))],
-        [sg.Text("",font=("Arial",25))],[sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/crown.png',pad=((leftPad,0),0))],    
-        [sg.Text('Player 3 is: ' + str(playerClass[2]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[2])] + [sg.Text('Player 4 is: ' + str(playerClass[3]),font=("Arial",25),text_color = playerColors[3],pad=((550,10),20))],
-        
-        [sg.Text("Victory Points: " +str(playerVictoryPoints[2]),font=("Arial",30),text_color = playerColors[2],key=("player3VicPoints"),pad=((50,590),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[3]),font=("Arial",30),text_color = playerColors[3],key=("player4VicPoints"))],
-    
 
-    #[sg.Text("Number of Games Played:",font=("Arial",25),pad=((50,0),0))] +[sg.Text("Best Player:",font=("Arial",25),pad=((510,0),20))],
-    #[sg.Text("",font=("Arial",25),key=("numOfGames"))]+[sg.Text("",font=("Arial",25),key=("bestPlayer"),pad=((510,0),(0,50)))]
-    ]
-                
+        #[sg.Text("Number of Games Played:",font=("Arial",25),pad=((50,0),0))] +[sg.Text("Best Player:",font=("Arial",25),pad=((510,0),20))],
+        #[sg.Text("",font=("Arial",25),key=("numOfGames"))]+[sg.Text("",font=("Arial",25),key=("bestPlayer"),pad=((510,0),(0,50)))]
+            ]
+    # Only 2 or 3 players competing
+    else:
+        # Player 1 or 2 won the game
+        if int(playerVictoryPoints[0]) >= 10 or int(playerVictoryPoints[1]) >= 10:
+            
+            layout = [
+            [sg.Text('Game: ' + str(GameNum),font=("Arial",50),pad=(500,0))],
+            [sg.Text("",font=("Arial",25))],[sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/crown.png',pad=((leftPad,0),0))],
+            [sg.Text('Player 1 is: ' + str(playerClass[0]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[0])]+[sg.Button('Continue',font=("Arial",40),pad=((170,70),(0,10)))]+[sg.Text('Player 2 is: ' + str(playerClass[1]),font=("Arial",25),text_color = playerColors[1],pad=((150,10),20))],
+            
+            [sg.Text("Victory Points: " +str(playerVictoryPoints[0]),font=("Arial",30),text_color = playerColors[0],key=("player1VicPoints"),pad=((50,580),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[1]),font=("Arial",30),text_color = playerColors[1],key=("player2VicPoints"))],
+            [sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/CatanBoard.png',pad=(200,0))],    
+            [sg.Text('Player 3 is: ' + str(playerClass[2]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[2])] + [sg.Text('Player 4 is: ' + str(playerClass[3]),font=("Arial",25),text_color = playerColors[3],pad=((550,10),20))],
+            
+            [sg.Text("Victory Points: " +str(playerVictoryPoints[2]),font=("Arial",30),text_color = playerColors[2],key=("player3VicPoints"),pad=((50,590),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[3]),font=("Arial",30),text_color = playerColors[3],key=("player4VicPoints"))],
+            ]
+       
+       # Player 3 won the game
+        else:
+
+            layout = [
+            [sg.Text('Game: ' + str(GameNum),font=("Arial",50),pad=(500,0))],
+            [sg.Text('Player 1 is: ' + str(playerClass[0]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[0])]+[sg.Button('Continue',font=("Arial",40),pad=((170,70),(0,10)))]+[sg.Text('Player 2 is: ' + str(playerClass[1]),font=("Arial",25),text_color = playerColors[1],pad=((150,10),20))],
+            
+            [sg.Text("Victory Points: " +str(playerVictoryPoints[0]),font=("Arial",30),text_color = playerColors[0],key=("player1VicPoints"),pad=((50,580),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[1]),font=("Arial",30),text_color = playerColors[1],key=("player2VicPoints"))],
+            [sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/CatanBoard.png',pad=(200,0))],
+            [sg.Text("",font=("Arial",25))],[sg.Image('/Users/thomashansknecht/Documents/catanatron/catanatron_experimental/ThomasUI/visuals/crown.png',pad=((leftPad,0),0))],    
+            [sg.Text('Player 3 is: ' + str(playerClass[2]),font=("Arial",25),pad=((50,0),0),text_color = playerColors[2])] + [sg.Text('Player 4 is: ' + str(playerClass[3]),font=("Arial",25),text_color = playerColors[3],pad=((550,10),20))],
+            
+            [sg.Text("Victory Points: " +str(playerVictoryPoints[2]),font=("Arial",30),text_color = playerColors[2],key=("player3VicPoints"),pad=((50,590),(0,10)))]+[sg.Text("Victory Points: " +str(playerVictoryPoints[3]),font=("Arial",30),text_color = playerColors[3],key=("player4VicPoints"))],
+        
+
+        #[sg.Text("Number of Games Played:",font=("Arial",25),pad=((50,0),0))] +[sg.Text("Best Player:",font=("Arial",25),pad=((510,0),20))],
+        #[sg.Text("",font=("Arial",25),key=("numOfGames"))]+[sg.Text("",font=("Arial",25),key=("bestPlayer"),pad=((510,0),(0,50)))]
+            ]
+
+
                 
                 
 
