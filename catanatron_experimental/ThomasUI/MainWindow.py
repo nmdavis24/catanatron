@@ -11,7 +11,7 @@ from humanfriendly import text
 
 sg.theme('DarkAmber')   # Add a touch of color
 # All the stuff inside your window.
-layout = [  [sg.Text('Define Game Rules',font=("Arial",25))],[sg.Radio('Default     ', "RADIO1", default=True, size=(10,1)), sg.Radio('Only Show Results', "RADIO1")],
+layout = [  [sg.Text('Define Game Rules',font=("Arial",25))],[sg.Radio('Full Simulation', "RADIO1", default=True, size=(20,1),font=("Arial",15)), sg.Radio('Only Show Results', "RADIO1",font=("Arial",15))],
             [sg.Text('Please specify the type of player for players 1,2,3, and 4',font=("Arial",15))],
             [sg.Text('Options:',font=("Arial",15))],
             [sg.Text('1. AlphaBeta - Oracle player AI',font=("Arial",15))],
