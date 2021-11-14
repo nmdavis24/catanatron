@@ -118,7 +118,7 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,t
                 
                 
     # Create the Window
-    window = sg.Window('Settlers of Catan',layout, finalize=True)
+    window = sg.Window('Results for Settlers of Catan Simulation',layout, finalize=True)
    
 
     while True:
