@@ -136,7 +136,15 @@ PLAYER_CLASSES = {
     default="DEBUG",
     help="Controls verbosity. Values: DEBUG, INFO, ERROR",
 )
-def simulate(num, players, outpath, save_in_db, watch, loglevel):
+
+ 
+@click.option(
+    "--skip-cycle-screen/--no-skip-cycle-screen",
+    default=False,
+    help="This is the custom option I made to skip to the end screen when we say yes",
+)
+
+def simulate(num, players, outpath, save_in_db, watch, loglevel,skip_cycle_screen):
     """Simple program simulates NUM Catan games."""
     player_keys = players.split(",")
 
@@ -148,11 +156,11 @@ def simulate(num, players, outpath, save_in_db, watch, loglevel):
                 params = [colors[i]] + key.split(":")[1:]
                 initialized_players.append(player_class(*params))
 
-    play_batch(num, initialized_players, outpath, save_in_db, watch, loglevel)
+    play_batch(num, initialized_players, outpath, save_in_db, watch, loglevel,skip_cycle_screen)
 
 
 def play_batch(
-    num_games, players, games_directory, save_in_db, watch, loglevel="DEBUG"
+    num_games, players, games_directory, save_in_db, watch, loglevel="DEBUG",skip_cycle_screen=False
 ):
     """Plays num_games, saves final game in database, and populates data/ matrices"""
     logger.setLevel(loglevel)
@@ -225,7 +233,8 @@ def play_batch(
             + f" ({duration:.3g} secs) [{game.winning_color()}:{game.state.num_turns}({len(game.state.actions)})]"
         )
         # Now that we played a game lets show the results
-        GenerateEndScreen(i+1, arrayOfVictoryPoints, arrayOfPlayerTypes)
+        if skip_cycle_screen == False:
+            GenerateEndScreen(i+1, arrayOfVictoryPoints, arrayOfPlayerTypes)
         if save_in_db and not watch:
             link = ensure_link(game)
             logger.info(f"Saved in db. See result at: {link}")

@@ -11,7 +11,7 @@ from humanfriendly import text
 
 sg.theme('DarkAmber')   # Add a touch of color
 # All the stuff inside your window.
-layout = [  [sg.Text('Define Game Rules',font=("Arial",25))],[sg.Radio('Default     ', "RADIO1", default=True, size=(10,1)), sg.Radio('Custom', "RADIO1")],
+layout = [  [sg.Text('Define Game Rules',font=("Arial",25))],[sg.Radio('Default     ', "RADIO1", default=True, size=(10,1)), sg.Radio('Only Show Results', "RADIO1")],
             [sg.Text('Please specify the type of player for players 1,2,3, and 4',font=("Arial",15))],
             [sg.Text('Options:',font=("Arial",15))],
             [sg.Text('1. AlphaBeta - Oracle player AI',font=("Arial",15))],
@@ -63,14 +63,21 @@ while True:
                 
         print('You entered:', '\nPlayer1:', values[2], '\nPlayer2:', values[3], '\nPlayer3:', values[4], '\nPlayer4:', values[5])
     
+        # Lets define if we should show every game result which is stored in values[0]
+        if values[0] == False:
+            values[0] = ' --skip-cycle-screen'
 
+        else:
+            values[0] = ' --no-skip-cycle-screen'
+
+        print("Game settings are: " + str(values[0]))
         
         #rc = subprocess.call("catanatron-play --players=R,W,F,AB:2 --num=2")
         # This is the path on a Mac for Thomas
         window.close()
         window.close()
         window.close()
-        os.system('/Users/thomashansknecht/opt/anaconda3/bin/catanatron-play --players=' + str(values[2]) +','+ str(values[3])+ ','+ str(values[4])+ ',' + str(values[5]) + ' --num=' + str((int(values[6])))) 
+        os.system('/Users/thomashansknecht/opt/anaconda3/bin/catanatron-play --players=' + str(values[2]) +','+ str(values[3])+ ','+ str(values[4])+ ',' + str(values[5]) + ' --num=' + str((int(values[6])))+ str(values[0])) 
 
         break
 

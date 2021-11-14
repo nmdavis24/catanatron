@@ -94,7 +94,7 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,t
     [sg.Button('Done',font=("Arial",40),pad=((430,0),(20,20)))]+[sg.Button('Graph Results',font=("Arial",40),pad=((10,0),(0,0)),key='result_But')],
     
     [sg.Text("",pad=((265,0),20),font=("Arial",45),key='graph_Header')],
-    [sg.Canvas(key='controls_cv',pad=((325,0),0))],
+    [sg.Canvas(key='controls_cv',pad=((305,0),0))],
     [sg.Column(
         layout=[
             [sg.Canvas(key='fig_cv',
@@ -142,7 +142,6 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,t
         # using list comprehension to
         # perform conversion
         test_list = [int(i) for i in playerWins]
-        print("Test list contains "+str(test_list))
         
         ax.bar([0,1,2,3],test_list,color=playerColors)
         ax.set_facecolor('lightGreen')
