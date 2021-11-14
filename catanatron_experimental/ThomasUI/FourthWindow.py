@@ -91,10 +91,10 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,t
     
     [sg.Text("Average Victory Points: " +str(float(round(avgPlayerVictoryPoints[2],4))),font=("Arial",30),text_color = playerColors[2],key=("player3VicPoints"),pad=((50,100),(0,10)))]+[sg.Text("Average Victory Points: " +str(float(round(avgPlayerVictoryPoints[3],4))),font=("Arial",30),text_color = playerColors[3],key=("player4VicPoints"))],
     
-    [sg.Button('Done',font=("Arial",40),pad=((370,70),(10,10)))],
-    [sg.Button('Show Results',font=("Arial",40),pad=((370,0),(0,0)),key='result_But')],
-    [sg.Text("",pad=(215,20),font=("Arial",45),key='graph_Header')],
-    [sg.Canvas(key='controls_cv',pad=(220,0))],
+    [sg.Button('Done',font=("Arial",40),pad=((430,0),(20,20)))]+[sg.Button('Graph Results',font=("Arial",40),pad=((10,0),(0,0)),key='result_But')],
+    
+    [sg.Text("",pad=((265,0),20),font=("Arial",45),key='graph_Header')],
+    [sg.Canvas(key='controls_cv',pad=((325,0),0))],
     [sg.Column(
         layout=[
             [sg.Canvas(key='fig_cv',
@@ -102,12 +102,13 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,t
                        size=(400 * 2, 400)
                        )]
         ],
-        pad=(200, 0))],
+        pad=((150,0), 0))],
     
        
     
 
-    [sg.Text("",font=("Arial",25),pad=((250,0),0),key='plotPlayers1',text_color = playerColors[0])]+[sg.Text("",font=("Arial",25),pad=((55,0),0),key='plotPlayers2',text_color= playerColors[1])]+[sg.Text("",font=("Arial",25),pad=((60,0),0),key='plotPlayers3',text_color= playerColors[2])]+[sg.Text("",font=("Arial",25),pad=((60,0),0),key='plotPlayers4',text_color= playerColors[3])],
+    [sg.Text("",font=("Arial",25),pad=((200,0),0),key='plotPlayers1',text_color = playerColors[0])]+[sg.Text("",font=("Arial",25),pad=((55,0),0),key='plotPlayers2',text_color= playerColors[1])]+[sg.Text("",font=("Arial",25),pad=((60,0),0),key='plotPlayers3',text_color= playerColors[2])]+[sg.Text("",font=("Arial",25),pad=((60,0),0),key='plotPlayers4',text_color= playerColors[3])],
+    [sg.Text("",font=("Arial",25),pad=((200,0),0),key='plotPlayerWins1',text_color = playerColors[0])]+[sg.Text("",font=("Arial",25),pad=((60,0),0),key='plotPlayerWins2',text_color= playerColors[1])]+[sg.Text("",font=("Arial",25),pad=((65,0),0),key='plotPlayerWins3',text_color= playerColors[2])]+[sg.Text("",font=("Arial",25),pad=((65,0),0),key='plotPlayerWins4',text_color= playerColors[3])],
     [sg.Text("Number of Games Played: "+str(numOfGames),font=("Arial",25),pad=((50,0),(30,30)))],
     [sg.Text("Best Overall Player was Player "+str(winnerIndex+1)+ " who is "+ str(playerClass[winnerIndex]) + " with " + str(totalVictoryPoints[winnerIndex])+ " total Victory Points",font=("Arial",25),pad=((50,0),20))],
     [sg.Text("and " + str(playerWins[winnerIndex]) + " total wins",font=("Arial",25),pad=((50,0),0))],
@@ -155,10 +156,14 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,t
         draw_figure_w_toolbar(window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
         window['graph_Header'].Update("Graph of Player Wins")
         window['plotPlayers1'].Update("Player 1")
+        window['plotPlayerWins1'].Update("(" + str(playerWins[0]) + " wins)")
         window['plotPlayers2'].Update("Player 2")
+        window['plotPlayerWins2'].Update("(" + str(playerWins[1]) + " wins)")
         window['plotPlayers3'].Update("Player 3")
+        window['plotPlayerWins3'].Update("(" + str(playerWins[2]) + " wins)")
         window['plotPlayers4'].Update("Player 4")
+        window['plotPlayerWins4'].Update("(" + str(playerWins[3]) + " wins)")
         window['result_But'].Update("",visible=False)
 
 
-GenerateResultsScreen(5,["RandomPlayer:RED","AlphaBetaPlayer:BLUE","BadPlayer:YELLOW",""],[5.325353532325,4.3245357678,3.7896856554,''],[25,8,15,''],[1,2,6,4],3)
+#GenerateResultsScreen(5,["RandomPlayer:RED","AlphaBetaPlayer:BLUE","BadPlayer:YELLOW",""],[5.325353532325,4.3245357678,3.7896856554,''],[25,8,15,''],[1,2,6,4],3)
