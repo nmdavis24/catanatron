@@ -1,13 +1,44 @@
+import PySimpleGUI as sg
+import numpy as np
 from ctypes import sizeof
 import os
 from pickle import FALSE, TRUE
-import PySimpleGUI as sg
 import subprocess
 import math
-import matplotlib.pyplot as plt
-from ThomasUI import visuals
-
 from humanfriendly import text
+
+
+"""
+    Embedding the Matplotlib toolbar into your application
+
+"""
+
+# ------------------------------- This is to include a matplotlib figure in a Tkinter canvas
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+
+
+def draw_figure_w_toolbar(canvas, fig, canvas_toolbar):
+    if canvas.children:
+        for child in canvas.winfo_children():
+            child.destroy()
+    if canvas_toolbar.children:
+        for child in canvas_toolbar.winfo_children():
+            child.destroy()
+    figure_canvas_agg = FigureCanvasTkAgg(fig, master=canvas)
+    figure_canvas_agg.draw()
+    toolbar = Toolbar(figure_canvas_agg, canvas_toolbar)
+    toolbar.update()
+    figure_canvas_agg.get_tk_widget().pack(side='right', fill='both', expand=1)
+
+
+class Toolbar(NavigationToolbar2Tk):
+    def __init__(self, *args, **kwargs):
+        super(Toolbar, self).__init__(*args, **kwargs)
+
+
+# ------------------------------- PySimpleGUI CODE
+
 
 
 # Simple UI for catan
@@ -53,10 +84,20 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,p
     
     [sg.Text("Average Victory Points: " +str(avgPlayerVictoryPoints[2]),font=("Arial",30),text_color = playerColors[2],key=("player3VicPoints"),pad=((50,590),(0,10)))]+[sg.Text("Average Victory Points: " +str(avgPlayerVictoryPoints[3]),font=("Arial",30),text_color = playerColors[3],key=("player4VicPoints"))],
     
-    [sg.Text("Graph of Player Wins",pad=(675,20),font=("Arial",45))],
-    #[sg.Graph(canvas_size=(800, 500), graph_bottom_left=(-20,-10), graph_top_right=(105,10*numOfGames), background_color='white', pad=(500,20),key='graph')],
-
-    [sg.Button('Done',font=("Arial",40),pad=((170,70),(0,10)))]
+    [sg.Text("",pad=(675,20),font=("Arial",45),key='graph_Header')],
+    
+    [sg.Button('Done',font=("Arial",40),pad=((370,70),(0,10)))],
+    [sg.Button('Show Results',font=("Arial",40),pad=((370,70),(0,10)))],
+    [sg.Canvas(key='controls_cv',pad=(600,0))],
+    [sg.Column(
+        layout=[
+            [sg.Canvas(key='fig_cv',
+                       # it's important that you set this size
+                       size=(400 * 2, 400)
+                       )]
+        ],
+        pad=(500, 50)
+    )],
 
 
     #[sg.Text("Number of Games Played:",font=("Arial",25),pad=((50,0),0))] +[sg.Text("Best Player:",font=("Arial",25),pad=((510,0),20))],
@@ -65,83 +106,27 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,p
                 
                 
                 
-
     # Create the Window
     window = sg.Window('Settlers of Catan',layout, finalize=True)
+   
 
-    # Create our graph properties
-    #graph = window['graph']
-    #graph.DrawLine((-8,0), (1100,0))    
-    #graph.DrawLine((-8,0), (-8,1100))    
-
-# Draw vertical axis key
-
-    
-
-    
-
-# Settings need to change depending on how many games were played. We need a setting for 0-4,5-20,21-50,51-100
-# Draw horizontal axis key
-
-    # if numOfGames < 4 and numOfGames > 0: 
-
-    #     for x in range(0, int(numOfPlayers), 1):    
-    #         graph.DrawLine((x*30,-3), (x*30,0))    
-            
-    #         graph.DrawText(str(playerClass[x])+ str(x+1), (x*30,-5), color=playerColors[x],font=("Arial",15))    
-    
-    #     for y in range(0, 5, 1):    
-    #         graph.DrawLine((-3*50,y*2), (3*50,y*2))    
-            
-    #         graph.DrawText( y, (-15,y*2+0.5), color='blue',font=("Arial",20))
-
-    # if numOfGames >= 4 and numOfGames <= 20:
-
-    #     for x in range(0, int(numOfPlayers), 1):    
-    #         graph.DrawLine((x*30,-3), (x*30,0))    
-            
-    #         graph.DrawText(str(playerClass[x])+ str(x+1), (x*30,-5), color=playerColors[x],font=("Arial",15))    
-        
-    #     for y in range(0, int(numOfGames)*3, int(numOfGames/3)):    
-    #         graph.DrawLine((-3*80-30,y*3), (3*80-30,y*3))    
-            
-    #         graph.DrawText( y, (-15,y*3+1), color='blue',font=("Arial",20)) 
-
-    # if numOfGames >= 21:
-
-    #     for x in range(0, int(numOfPlayers), 1):    
-    #         graph.DrawLine((x*30,-3), (x*30,0))    
-            
-    #         graph.DrawText(str(playerClass[x])+ str(x+1), (x*30,-10), color=playerColors[x],font=("Arial",15))    
-        
-    #     for y in range(0, int(numOfGames)*2, int(numOfGames/4)):    
-    #         graph.DrawLine((-3*80-30,y*3), (3*80-30,y*3))    
-            
-    #         graph.DrawText( y, (-15,y*3), color='blue',font=("Arial",20))   
-
-    #     # Draw Graph  
-
-    #     for i in range(0,numOfPlayers):
-    #         graph.DrawRectangle((100,50),fill_color="blue",line_width="5") 
-    
-        # Event Loop to process "events" and get the "values" of the inputs
     while True:
         event, values = window.read()
-        if event == sg.WIN_CLOSED or event == 'Done': # if user closes window or clicks cancel
+        print(event, values)
+        if event in (sg.WIN_CLOSED, 'Exit') or event == "Done":  # always,  always give a way out!
             break
         
-        #if event == 'Start Game':
-            
-                    
-                    
-            #print('You entered:', '\nPlayer1:', values[2], '\nPlayer2:', values[3], '\nPlayer3:', values[4], '\nPlayer4:', values[5])
         
-
+        # ------------------------------- PASTE YOUR MATPLOTLIB CODE HERE
+        fig = plt.figure()
+        ax = fig.add_axes([0,0,1,1])
+        ax.bar(playerClass,playerWins,color=playerColors)
+        plt.grid()
             
-            #rc = subprocess.call("catanatron-play --players=R,W,F,AB:2 --num=2")
-            # This is the path on a Mac for Thomas
-            #break
 
-        window.close()
+        # ------------------------------- Instead of plt.show()
+        draw_figure_w_toolbar(window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+        window['graph_Header'].Update("Graph of Player Wins")
 
-GenerateResultsScreen(5,["RandomPlayer:RED","AlphaBetaPlayer:BLUE","BadPlayer:YELLOW","GreenPlayer:GREEN"],[5,10,15,20],[5,10,15,5],3,4)
+
+#GenerateResultsScreen(5,["RandomPlayer:RED","AlphaBetaPlayer:BLUE","BadPlayer:YELLOW","GreenPlayer:GREEN"],[5,10,15,20],[5,10,15,5],3,4)
