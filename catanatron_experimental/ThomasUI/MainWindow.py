@@ -19,12 +19,15 @@ layout = [  [sg.Text('Define Game Rules',font=("Arial",25))],[sg.Radio('Full Sim
             [sg.Text('3. BaseLine - A Base Line AI that picks moves randomly ',font=("Arial",15))],
             [sg.Text('4. Custom1 - The first AI we made',font=("Arial",15))],
             [sg.Text('5. Custom2 - The second custom AI we made',font=("Arial",15))],
-            [sg.Text('6. None - This player will not exist. At least 2 players must exist',font=("Arial",15))],
+            [sg.Text('6. WeightedRandomPlayer - Uses a weighted metric for choosing random moves',font=("Arial",15))],
+            [sg.Text('7. ValueFunctionPlayer',font=("Arial",15))],
+            [sg.Text('8. GreedyPlayoutsPlayer',font=("Arial",15))],
+            [sg.Text('9. None - This player will not exist. At least 2 players must exist',font=("Arial",15))],
             
-            [sg.Text('Player 1:     ',font=("Arial",15)), sg.InputCombo(('AlphaBeta', 'Human', 'BaseLine','Custom1','Custom2'), default_value = 'AlphaBeta',size=(20, 5))],
-            [sg.Text('Player 2:     ',font=("Arial",15)), sg.InputCombo(('AlphaBeta', 'Human', 'BaseLine','Custom1','Custom2'), default_value = 'BaseLine',size=(20, 5))],
-            [sg.Text('Player 3:     ',font=("Arial",15)), sg.InputCombo(('None','AlphaBeta', 'Human', 'BaseLine','Custom1','Custom2'),default_value = 'None', size=(20, 5))],
-            [sg.Text('Player 4:     ',font=("Arial",15)), sg.InputCombo(('None','AlphaBeta', 'Human', 'BaseLine','Custom1','Custom2'),default_value = 'None', size=(20, 5))],
+            [sg.Text('Player 1:     ',font=("Arial",15)), sg.InputCombo(('AlphaBeta', 'Human', 'BaseLine','Custom1','Custom2', 'WeightedRandomPlayer','ValueFunctionPlayer','GreedyPlayoutsPlayer'), default_value = 'AlphaBeta',size=(20, 5))],
+            [sg.Text('Player 2:     ',font=("Arial",15)), sg.InputCombo(('AlphaBeta', 'Human', 'BaseLine','Custom1','Custom2', 'WeightedRandomPlayer','ValueFunctionPlayer','GreedyPlayoutsPlayer'), default_value = 'BaseLine',size=(20, 5))],
+            [sg.Text('Player 3:     ',font=("Arial",15)), sg.InputCombo(('None','AlphaBeta', 'Human', 'BaseLine','Custom1','Custom2', 'WeightedRandomPlayer','ValueFunctionPlayer','GreedyPlayoutsPlayer'),default_value = 'None', size=(20, 5))],
+            [sg.Text('Player 4:     ',font=("Arial",15)), sg.InputCombo(('None','AlphaBeta', 'Human', 'BaseLine','Custom1','Custom2', 'WeightedRandomPlayer','ValueFunctionPlayer','GreedyPlayoutsPlayer'),default_value = 'None', size=(20, 5))],
             [sg.Text('Give Number of Games as 1,2,3,4,...100',font=("Arial",15))],
             [sg.Text('Num of Games:',font=("Arial",15)), sg.Slider(range=(1, 100), orientation='h', size=(34, 20), default_value=1)],
             [sg.Text('',font=("Arial",15))],
@@ -39,7 +42,7 @@ while True:
         break
     
     if event == 'Start Game':
-        options = ["AlphaBeta", "Human", "BaseLine", "Custom1", "Custom2"]
+        options = ["AlphaBeta", "Human", "BaseLine", "Custom1", "Custom2", "WeightedRandomPlayer", "ValueFunctionPlayer", "GreedyPlayoutsPlayer"]
         index = 0
         i = 0
         j = 0
@@ -56,7 +59,12 @@ while True:
                     values[i] = "Y"
                 elif (values[i] == options[4]): #Custom2 -- Not created yet
                     values[i] = "None"
-                
+                elif (values[i] == options[5]): # Weighted Random Player
+                    values[i] = "W"
+                elif (values[i] == options[6]): # Value Function Player
+                    values[i] = "F"
+                elif (values[i] == options[7]): # Greedy Playouts Player
+                    values[i] = "G"
 
                 
                 
