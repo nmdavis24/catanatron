@@ -29,7 +29,7 @@ layout = [  [sg.Text('Define Game Rules',font=("Arial",25))],[sg.Radio('Full Sim
             [sg.Text('Player 3:     ',font=("Arial",15)), sg.InputCombo(('None','AlphaBeta', 'Human', 'BaseLine','Custom1','Custom2', 'WeightedRandomPlayer','ValueFunctionPlayer','GreedyPlayoutsPlayer'),default_value = 'None', size=(20, 5))],
             [sg.Text('Player 4:     ',font=("Arial",15)), sg.InputCombo(('None','AlphaBeta', 'Human', 'BaseLine','Custom1','Custom2', 'WeightedRandomPlayer','ValueFunctionPlayer','GreedyPlayoutsPlayer'),default_value = 'None', size=(20, 5))],
             [sg.Text('Give Number of Games as 1,2,3,4,...100',font=("Arial",15))],
-            [sg.Text('Num of Games:',font=("Arial",15)), sg.Slider(range=(1, 100), orientation='h', size=(34, 20), default_value=1)],
+            [sg.Text('Num of Games:',font=("Arial",15)), sg.Slider(range=(1, 10000), orientation='h', size=(34, 20), default_value=1)],
             [sg.Text('',font=("Arial",15))],
             [sg.Button('Start Game',font=("Arial",15)), sg.Button('Cancel',font=("Arial",15))] ]
 

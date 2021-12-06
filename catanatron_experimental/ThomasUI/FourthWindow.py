@@ -50,6 +50,10 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,t
     for i in range(0,len(arrayOfPlayerTypes)):
         if (arrayOfPlayerTypes[i] != ''):
             currentline = arrayOfPlayerTypes[i].split(":")
+            # Change to whatever algorithm MyPlayer represents
+            if (currentline[0] == "MyPlayer"):
+                currentline[0] = "0 or 1 player"
+
             playerClass[i] = currentline[0]
             playerColors[i] = currentline[1]
 
@@ -76,7 +80,7 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,t
     # Now we need to check for more players with the same score
     print("Winner is Player: " + str(winnerIndex+1)+ " which is" + str(playerClass[winnerIndex]) )
 
-    sg.theme('DarkAmber')   # Add a touch of color
+    sg.theme('Reddit')   # Add a touch of color
     # All the stuff inside your window.
     leftPad = 0
     
@@ -109,8 +113,8 @@ def GenerateResultsScreen(numOfGames,arrayOfPlayerTypes,avgPlayerVictoryPoints,t
 
     [sg.Text("",font=("Arial",25),pad=((200,0),0),key='plotPlayers1',text_color = playerColors[0])]+[sg.Text("",font=("Arial",25),pad=((55,0),0),key='plotPlayers2',text_color= playerColors[1])]+[sg.Text("",font=("Arial",25),pad=((60,0),0),key='plotPlayers3',text_color= playerColors[2])]+[sg.Text("",font=("Arial",25),pad=((60,0),0),key='plotPlayers4',text_color= playerColors[3])],
     [sg.Text("",font=("Arial",25),pad=((200,0),0),key='plotPlayerWins1',text_color = playerColors[0])]+[sg.Text("",font=("Arial",25),pad=((60,0),0),key='plotPlayerWins2',text_color= playerColors[1])]+[sg.Text("",font=("Arial",25),pad=((65,0),0),key='plotPlayerWins3',text_color= playerColors[2])]+[sg.Text("",font=("Arial",25),pad=((65,0),0),key='plotPlayerWins4',text_color= playerColors[3])],
-    [sg.Text("Number of Games Played: "+str(numOfGames),font=("Arial",25),pad=((50,0),(30,30)))],
-    [sg.Text("Best Overall Player was Player "+str(winnerIndex+1)+ " who is "+ str(playerClass[winnerIndex]) + " with " + str(totalVictoryPoints[winnerIndex])+ " total Victory Points",font=("Arial",25),pad=((50,0),20))],
+    [sg.Text("Number of Games Played: "+str(numOfGames),font=("Arial",25),pad=((50,0),(30,0)))],
+    [sg.Text("Best Overall Player was Player "+str(winnerIndex+1)+ " who is "+ str(playerClass[winnerIndex]) + " with " + str(totalVictoryPoints[winnerIndex])+ " total Victory Points",font=("Arial",25),pad=((50,0),10))],
     [sg.Text("and " + str(playerWins[winnerIndex]) + " total wins",font=("Arial",25),pad=((50,0),0))],
     [sg.Text("",font=("Arial",25),key=("numOfGames"))]+[sg.Text("",font=("Arial",25),key=("bestPlayer"),pad=((210,0),(0,50)))]
     ]
